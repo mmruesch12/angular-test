@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { BackendService, Ticket } from "../backend.service";
-import { Subject } from "rxjs";
+import { BackendService, Ticket, TicketDetails } from "../backend.service";
+import { Subject, Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 @Component({
@@ -12,15 +12,16 @@ import { takeUntil } from "rxjs/operators";
 export class TicketDetailsComponent implements OnInit, OnDestroy {
   private stop$: Subject<void> = new Subject<void>();
 
-  ticket: Ticket;
+  ticket: Observable<TicketDetails>;
 
   constructor(private backend: BackendService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    console.log(this.route.params);
-    // this.route.params.pipe(takeUntil(this.stop$)).subscribe(() => {
-    //   this.ticket = this.backend.ticket(this.route.params);
-    // });
+    this.route.params
+      .pipe(takeUntil(this.stop$))
+      .subscribe(
+        (res) => (this.ticket = this.backend.getTicketDetails(res.id))
+      );
   }
 
   ngOnDestroy() {

@@ -20,6 +20,11 @@ export type Ticket = {
   completed: boolean;
 };
 
+export type TicketDetails = {
+  ticket: Ticket;
+  user: User;
+};
+
 function randomDelay() {
   return Math.random() * 1000;
 }
@@ -31,27 +36,28 @@ export class BackendService {
       id: 0,
       description: "Install a monitor arm",
       assigneeId: 111,
-      completed: false
+      completed: false,
     },
     {
       id: 1,
       description: "Move the desk to the new location",
       assigneeId: 111,
-      completed: false
-    }
+      completed: false,
+    },
   ];
 
   storedUsers: User[] = [
     { id: 111, name: "Victor" },
-    { id: 222, name: "Jack" }
+    { id: 222, name: "Jack" },
   ];
 
   lastId = 1;
 
-  private findTicketById = id =>
-    this.storedTickets.find(ticket => ticket.id === +id);
+  private findTicketById = (id) =>
+    this.storedTickets.find((ticket) => ticket.id === +id);
 
-  private findUserById = id => this.storedUsers.find(user => user.id === +id);
+  private findUserById = (id) =>
+    this.storedUsers.find((user) => user.id === +id);
 
   tickets() {
     return of(this.storedTickets).pipe(delay(randomDelay()));
@@ -69,12 +75,18 @@ export class BackendService {
     return of(this.findUserById(id)).pipe(delay(randomDelay()));
   }
 
+  getTicketDetails(id: number): Observable<TicketDetails> {
+    const ticket = this.findTicketById(id);
+    const user = this.findUserById(ticket.assigneeId);
+    return of({ ticket: ticket, user: user });
+  }
+
   newTicket(payload: { description: string }) {
     const newTicket: Ticket = {
       id: ++this.lastId,
       description: payload.description,
       assigneeId: null,
-      completed: false
+      completed: false,
     };
 
     this.storedTickets = this.storedTickets.concat(newTicket);
@@ -99,7 +111,7 @@ export class BackendService {
 
     const updatedTicket = { ...foundTicket, ...updates };
 
-    this.storedTickets = this.storedTickets.map(t =>
+    this.storedTickets = this.storedTickets.map((t) =>
       t.id === ticketId ? updatedTicket : t
     );
 

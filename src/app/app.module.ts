@@ -19,7 +19,7 @@ const routes: Routes = [
   // },
   {
     path: "ticket/:id",
-    component: TicketListComponent,
+    component: TicketDetailsComponent,
   },
 ];
 

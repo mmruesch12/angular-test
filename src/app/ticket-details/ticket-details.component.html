@@ -1,1 +1,4 @@
-<p>ticket-details works!</p>
+<p><strong>Description: </strong>{{ (ticket | async)?.ticket?.description }}</p>
+<p><strong>Assigned to: </strong>{{ (ticket | async)?.user?.name }}</p>
+
+<button [routerLink]="'/'">Back</button>
