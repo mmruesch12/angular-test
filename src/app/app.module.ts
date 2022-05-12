@@ -6,6 +6,8 @@ import { RouterModule, Routes } from "@angular/router";
 import { TicketListComponent } from "./ticket-list/ticket-list.component";
 import { TicketDetailsComponent } from "./ticket-details/ticket-details.component";
 
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+
 const routes: Routes = [
   {
     path: "",
@@ -27,6 +29,8 @@ const routes: Routes = [
   declarations: [AppComponent, TicketListComponent, TicketDetailsComponent],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot(routes, { initialNavigation: "enabled" }),
   ],
   providers: [BackendService],

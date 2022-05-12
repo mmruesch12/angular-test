@@ -1,9 +1,21 @@
 <h2>Tickets</h2>
 
 <ul>
-  <li *ngFor="let t of tickets|async">
-    Ticket: {{t.id}}, {{t.description}}
+  <li *ngFor="let t of tickets | async">
+    Ticket: {{ t.id }}, {{ t.description }}
     <button (click)="getDetails(t.id)">Details</button>
   </li>
 </ul>
 
+<form [formGroup]="form" (ngSubmit)="addTicket()">
+  <!-- <div>
+    <label for="name">First Name: </label>
+    <input id="name" formControlName="name" />
+  </div> -->
+  <div>
+    <label for="description">Description: </label>
+    <input id="description" formControlName="description" />
+  </div>
+
+  <button type="submit">Submit Ticket</button>
+</form>

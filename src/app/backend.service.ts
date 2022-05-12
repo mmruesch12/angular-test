@@ -95,6 +95,7 @@ export class BackendService {
   }
 
   assign(ticketId: number, userId: number) {
+    console.log("userid: ", userId);
     return this.update(ticketId, { assigneeId: userId });
   }
 
