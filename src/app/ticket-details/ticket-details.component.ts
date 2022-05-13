@@ -8,7 +8,7 @@ import {
 } from "../backend.service";
 import { Subject, Observable } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-import { FormBuilder, FormControl } from "@angular/forms";
+import { FormBuilder, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: "app-ticket-details",
@@ -24,7 +24,7 @@ export class TicketDetailsComponent implements OnInit, OnDestroy {
   ticketId: number;
 
   form = this.formBuilder.group({
-    user: new FormControl(""),
+    user: new FormControl("", Validators.required),
   });
 
   constructor(

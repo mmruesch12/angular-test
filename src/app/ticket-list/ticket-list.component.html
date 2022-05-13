@@ -2,20 +2,24 @@
 
 <ul>
   <li *ngFor="let t of tickets | async">
-    Ticket: {{ t.id }}, {{ t.description }}
+    <span class="pad-right-10">Ticket: {{ t.id }}, {{ t.description }}</span>
     <button (click)="getDetails(t.id)">Details</button>
   </li>
 </ul>
 
 <form [formGroup]="form" (ngSubmit)="addTicket()">
-  <!-- <div>
-    <label for="name">First Name: </label>
-    <input id="name" formControlName="name" />
-  </div> -->
-  <div>
+  <div class="pad-bottom-10">
     <label for="description">Description: </label>
     <input id="description" formControlName="description" />
   </div>
 
   <button type="submit">Submit Ticket</button>
+</form>
+
+<form [formGroup]="filterForm" (ngSubmit)="filter()">
+  <div class="pad-bottom-10">
+    <p>Filter by description:</p>
+    <input formControlName="filter" />
+  </div>
+  <button type="submit">Filter</button>
 </form>

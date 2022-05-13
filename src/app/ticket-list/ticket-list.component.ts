@@ -13,8 +13,11 @@ export class TicketListComponent implements OnInit {
   users = this.backend.users();
 
   form = this.formBuilder.group({
-    name: new FormControl(""),
     description: new FormControl(""),
+  });
+
+  filterForm = this.formBuilder.group({
+    filter: new FormControl(""),
   });
 
   constructor(
@@ -32,11 +35,16 @@ export class TicketListComponent implements OnInit {
   addTicket() {
     this.backend
       .newTicket({
-        // name: this.form.controls["name"].value,
         description: this.form.controls["description"].value,
       })
       .subscribe((res) => {
         this.tickets = this.backend.tickets();
       });
+  }
+
+  filter() {
+    this.tickets = this.backend.filterTickets(
+      this.filterForm.controls["filter"].value
+    );
   }
 }

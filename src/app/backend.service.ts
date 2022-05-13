@@ -118,4 +118,12 @@ export class BackendService {
 
     return of(updatedTicket).pipe(delay(randomDelay()));
   }
+
+  filterTickets(key: string): Observable<Ticket[]> {
+    return of(
+      this.storedTickets.filter((ticket) =>
+        ticket.description.toLowerCase().includes(key.toLowerCase())
+      )
+    );
+  }
 }

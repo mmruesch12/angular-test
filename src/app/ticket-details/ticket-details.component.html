@@ -2,12 +2,7 @@
 <p><strong>Assigned to: </strong>{{ (ticket | async)?.user?.name }}</p>
 
 <form [formGroup]="form" (ngSubmit)="assignTicket()">
-  <!-- <div>
-    <label for="name">Name: </label>
-    <input id="name" formControlName="name" />
-  </div> -->
-
-  <div>
+  <div class="pad-bottom-10">
     <select formControlName="user">
       <option value="" disabled selected>Select User</option>
       <option [ngValue]="user" *ngFor="let user of users | async">
@@ -16,7 +11,9 @@
     </select>
   </div>
 
-  <button type="submit">Assign Ticket</button>
+  <div class="pad-bottom-10">
+    <button [disabled]="!form.valid" type="submit">Assign Ticket</button>
+  </div>
 </form>
 
 <button [routerLink]="'/'">Back</button>
